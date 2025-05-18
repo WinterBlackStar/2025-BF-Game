@@ -25,7 +25,7 @@ def string_checker(question, valid_ans=("yes", "no")):
         print(error)
         print()
 
-def mode_checker(question, valid_ans=("e", "m", "h")):
+def mode_checker(question, valid_ans=("easy", "medium", "hard")):
 
     error = f"please enter a valid option from the following list: {valid_ans}"
 
@@ -72,8 +72,6 @@ def int_check(question):
 
 
 # Display instructions
-mode = "regular"
-rounds_played = 0
 
 def instructions():
         print("""
@@ -124,6 +122,7 @@ mode = "regular"
 rounds_played = 0
 
 bf_list = ["number answers"]
+num_question = [""]
 
 
 # Main routine
@@ -161,12 +160,18 @@ while rounds_played < num_rounds:
     print()
 
     # get user choice
-    user_choice = input("Choose: ")
+    user_choice = input(f"Choose: {num_question}")
 
     # if user choice is the exit code, break the loop
     if user_choice == "xxx":
         break
 
+    # randomly choose from the rps list (excluding the exit code)
+
+    num_question = random.choice(bf_list)
+    print(random.randint(0,9))
+
+    
 
     rounds_played += 1
 
