@@ -73,14 +73,14 @@ def initial_points(which_player):
     double = "no"
 
     # Roll the dice for the user and note if they got a double
-    roll_one = random.randint(1, 6)
-    roll_two = random.randint(1, 6)
+    num_one = random.randint(1, 6)
+    num_two = random.randint(1, 6)
 
-    if roll_one == roll_two:
+    if num_one == num_two:
         double = "yes"
 
-    total = roll_one + roll_two
-    print(f"{which_player} - Roll 1: {roll_one} \t| Roll 2: {roll_two} \t| Total: {total}")
+    total = num_one + num_two
+    print(f"{which_player} - Roll 1: {num_one} \t| Roll 2: {num_two} \t| Total: {total}")
 
     return total, double
 
