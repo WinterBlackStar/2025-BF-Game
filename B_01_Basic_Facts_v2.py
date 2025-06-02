@@ -1,8 +1,4 @@
-import math
 import random
-
-random_num = random.randint(1, 10)
-
 
 # Check that users have entered a valid
 # option based on a list
@@ -54,29 +50,46 @@ def mode_selection(question, valid_ans=("easy", "medium", "hard")):
         print()
 
 
-def int_check(question):
+def int_checker():
+    """Check user enter an integer more than / equal to 13"""
+
+    error = "Please enter an integer more than / equal to 13."
+
     while True:
-        error = "Please enter an integer that is 1 or more"
-
-        to_check = input(question)
-
-        # check for infinite mode
-        if to_check == "":
-            return "infinite"
-
         try:
-            response = int(to_check)
-    
-            # checks that the number is more than / equal to 13
+            response = int(input("What is the game goal?"))
+
             if response < 13:
                 print(error)
             else:
                 return response
-            
+
         except ValueError:
             print(error)
 
+def initial_points(which_player):
+    """Roll dice twice and return total / if double points apply"""
 
+    double = "no"
+
+    # Roll the dice for the user and note if they got a double
+    roll_one = random.randint(1, 6)
+    roll_two = random.randint(1, 6)
+
+    if roll_one == roll_two:
+        double = "yes"
+
+    total = roll_one + roll_two
+    print(f"{which_player} - Roll 1: {roll_one} \t| Roll 2: {roll_two} \t| Total: {total}")
+
+    return total, double
+
+
+def make_statement(statement, decoration):
+    """Adds emoji / additional characters to the start and end of heading"""
+
+    ends = decoration * 3
+    print(f"\n{ends} {statement} {ends}")
 # Display instructions
 
 def instructions():
@@ -87,27 +100,30 @@ def instructions():
 To begin, choose the level of the questions easy (e),
 medium (m), hard (h), easy has plus and minus, 
 medium has times and hard has divition questions.
+              
+Then set game goal to the number of points you aim to reach (over 13).
           
-Then choose how many rounds you'd like to play (push <enter> for 
-infinite mode).
-          
-Your goal is to try to answer all the questions without 
-losing any rounds.
+Your goal is to try to reach or goal.
           
  Good luck!
 """)
 
-# calculate easy mode questions
 
 # Main Routine Starts here
 # Initialise game variables
-mode = "regular"
-rounds_played = 1
+# At the start of the game, user score are zero
+user_score = 0
+rounds_played = 0
+
+game_histoy = []
+
 
 # Main Routine
 print()
 print("➕➖✖️ ➗ Basic Facts➕➖✖️ ➗")
 print()
+
+print("😄😄😄Welcome to the Basic Facts Quiz😄😄😄")
 
 # ask the user if they want to see instructions and display
 # them if requested
@@ -139,36 +155,26 @@ elif mode_selection =="h":
 
 
 # Ask user for number of rounds / infinite mode
-num_rounds = int_check("How many rounds would you like? Push <enter> for inifinte mode: ")
 
-
-if num_rounds == "infinite":
-    mode = "infinite"
-    num_rounds = 5
 
 # Game loop starts here
-while rounds_played < num_rounds:
+game_goal = int(input("Game Goal"))     # should be a function call!
 
-    # Round headings
-    if mode == "infinite":
-        rounds_heading = f"\n000 rounds {rounds_played + 1} (Infinite Mode) 000"
-        # if users are in infinite mode, increase number of rounds!
-        num_rounds += 1
-    else:
-        rounds_heading = f"\n 💿💿💿 round {rounds_played + 1} of {num_rounds} 💿💿💿"
+# Play multiple rounds until a winner has been found
+while user_score < game_goal:
 
-    print(rounds_heading)
-    print()
+    # Start of round loop
+    # For testing purposes, ask the user what the points for the user / computer were
+    user_points = int(input("Enter the user points at the end of the round"))
 
-# get user choice
-    user_choice = string_checker("Choose:", bf_list)
-    print("you chose", user_choice)
+    # Outside rounds loop - Update score with round points, only add points to the score of the
+    user_score += user_points
 
-# if user choice is the exit code, break the loop
-    if user_choice == "xxx":
-        break
-
+    # show overall scores (add this to rounds loop)
+print("*** Game Update ***")    # replace with call to statement generator
+print()
+# end of entire game, output final results
+print(f"User Score: {user_score}")
 # Game loop ends here
 
 # Game History / Statistics area
-
