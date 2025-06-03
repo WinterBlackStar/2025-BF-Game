@@ -161,6 +161,10 @@ game_goal = int(input("What's your Game Goal"))     # should be a function call!
 # Play multiple rounds until a winner has been found
 while user_score < game_goal:
 
+    if game_goal == "game goal":
+        mode = "game goal"
+        game_goal = 5
+
     # Start of round loop
  # Display questions for easy mode
     
@@ -188,8 +192,11 @@ while user_score < game_goal:
                 history.append(current_answers)
 
 
+
     # Outside rounds loop - Update score with round points, only add points to the score of the
-    user_score += user_points
+        if (player_answer == answer):
+            rounds_played += 1
+
 
     # show overall scores (add this to rounds loop)
 print("*** Game Update ***")    # replace with call to statement generator
