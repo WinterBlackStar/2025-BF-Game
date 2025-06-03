@@ -57,7 +57,7 @@ def int_checker():
 
     while True:
         try:
-            response = int(input("What is the game goal?"))
+            response = int(input("What's your Game Goal?"))
 
             if response < 13:
                 print(error)
@@ -73,14 +73,14 @@ def initial_points(which_player):
     double = "no"
 
     # Roll the dice for the user and note if they got a double
-    num_one = random.randint(1, 6)
-    num_two = random.randint(1, 6)
+    num_one = random.randint(1, 10)
+    num_two = random.randint(1, 10)
 
     if num_one == num_two:
         double = "yes"
 
     total = num_one + num_two
-    print(f"{which_player} - Roll 1: {num_one} \t| Roll 2: {num_two} \t| Total: {total}")
+    print(f"{which_player} - first number: {num_one} \t| second number: {num_two} \t| Total: {total}")
 
     return total, double
 
@@ -114,7 +114,9 @@ Your goal is to try to reach or goal.
 # At the start of the game, user score are zero
 user_score = 0
 rounds_played = 0
+correct_answers=0
 
+history = []
 game_histoy = []
 
 
@@ -123,7 +125,7 @@ print()
 print("➕➖✖️ ➗ Basic Facts➕➖✖️ ➗")
 print()
 
-print("😄😄😄Welcome to the Basic Facts Quiz😄😄😄")
+print("😄😄😄Welcome y'all to the Basic Facts Quiz😄😄😄")
 
 # ask the user if they want to see instructions and display
 # them if requested
@@ -140,8 +142,8 @@ print("\nenter mode selection easy (e), medium (m), hard (h)")
 mode_selection = input("\nwhat mode would you like?")
 
 
-    # if user chooses easy, display questio
-    
+    # if user chooses easy, display question
+
 if mode_selection =="e":
         print("you selected e")
 
@@ -153,19 +155,38 @@ elif mode_selection =="m":
 elif mode_selection =="h":
         print("you selected h")
 
-
-# Ask user for number of rounds / infinite mode
-
+game_goal = int(input("What's your Game Goal"))     # should be a function call!
 
 # Game loop starts here
-game_goal = int(input("Game Goal"))     # should be a function call!
-
 # Play multiple rounds until a winner has been found
 while user_score < game_goal:
 
     # Start of round loop
-    # For testing purposes, ask the user what the points for the user / computer were
-    user_points = int(input("Enter the user points at the end of the round"))
+ # Display questions for easy mode
+    
+    if mode_selection == "e":
+
+        # generating questions
+        num_one = random.randint(0,9)
+        num_two = random.randint(0,9)
+        math_symbols = ["plus","minus"]
+
+        if random.choice(math_symbols) == "plus":
+                answer = num_one + num_two
+                player_answer = input(str(num_one) + "+" + str(num_two) + "=")
+                player_answer = int(player_answer)
+
+                if (player_answer == answer):
+                    print("Yay you got it right😁")
+                    correct_answers += 1
+                    current_answers = [str(num_one) + "+" + str(num_two), answer]
+                    history.append(current_answers)
+
+                else:
+                    print("Aw naur, you got it wrong😭")
+                current_answers = [str(num_one) + "+" + str(num_two), answer]
+                history.append(current_answers)
+
 
     # Outside rounds loop - Update score with round points, only add points to the score of the
     user_score += user_points
