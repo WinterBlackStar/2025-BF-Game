@@ -114,8 +114,10 @@ Your goal is to try to reach or goal.
 # At the start of the game, user score are zero
 user_score = 0
 rounds_played = 0
-correct_answers=0
+correct_answers = 0
+rounds_won = 0
 
+user_input = []
 history = []
 game_histoy = []
 
@@ -176,33 +178,42 @@ while user_score < game_goal:
         math_symbols = ["plus","minus"]
 
         if random.choice(math_symbols) == "plus":
-                answer = num_one + num_two
-                player_answer = input(str(num_one) + "+" + str(num_two) + "=")
-                player_answer = int(player_answer)
+                answers = num_one + num_two
+                user_input = input(str(num_one) + "+" + str(num_two) + "=")
+                user_input = int(user_input)
 
-                if (player_answer == answer):
+                if (user_input == answers):
                     print("Yay you got it right😁")
                     correct_answers += 1
-                    current_answers = [str(num_one) + "+" + str(num_two), answer]
+                    current_answers = [str(num_one) + "+" + str(num_two), answers]
                     history.append(current_answers)
 
                 else:
                     print("Aw naur, you got it wrong😭")
-                current_answers = [str(num_one) + "+" + str(num_two), answer]
+                current_answers = [str(num_one) + "+" + str(num_two), answers]
                 history.append(current_answers)
 
 
 
     # Outside rounds loop - Update score with round points, only add points to the score of the
-        if (player_answer == answer):
+        if (user_input == answers):
             rounds_played += 1
 
+        if correct_answers >= game_goal:
+            break
 
-    # show overall scores (add this to rounds loop)
-print("*** Game Update ***")    # replace with call to statement generator
-print()
-# end of entire game, output final results
-print(f"User Score: {user_score}")
 # Game loop ends here
 
 # Game History / Statistics area
+
+results = game_histoy(user_input)
+
+    # Ajust game lost / game tied counters and add results to game history
+
+
+
+if results == "won":
+    rounds_won += 1
+    feedback = "👍👍You won👍👍"
+else:
+    feedback = "😢😢You lose😢😢"
