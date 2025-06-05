@@ -140,7 +140,7 @@ if want_instructions == "yes":
 
 # Display Mode selection
 
-print("\nenter mode selection easy (e), medium (m), hard (h)")
+print("\nenter (e) for easy mode")
 mode_selection = input("\nwhat mode would you like?")
 
 
@@ -149,15 +149,8 @@ mode_selection = input("\nwhat mode would you like?")
 if mode_selection =="e":
         print("you selected e")
 
-    # if user chooses medium, display question
-elif mode_selection =="m":
-        print("you selected m")
 
-    # if user chooses hard, display question
-elif mode_selection =="h":
-        print("you selected h")
-
-game_goal = int(input("What's your Game Goal"))     # should be a function call!
+game_goal = int(input("What's your Game Goal"))   
 
 # Game loop starts here
 # Play multiple rounds until a winner has been found
@@ -175,7 +168,7 @@ while user_score < game_goal:
         # generating questions
         num_one = random.randint(0,9)
         num_two = random.randint(0,9)
-        math_symbols = ["plus","minus"]
+        math_symbols = ["plus"]
 
         if random.choice(math_symbols) == "plus":
                 answers = num_one + num_two
@@ -196,24 +189,20 @@ while user_score < game_goal:
 
 
     # Outside rounds loop - Update score with round points, only add points to the score of the
-        if (user_input == answers):
-            rounds_played += 1
+        rounds_played += 1
+
 
         if correct_answers >= game_goal:
             break
+
+
+make_statement("Game Over", "🏁")
 
 # Game loop ends here
 
 # Game History / Statistics area
 
-results = game_histoy(user_input)
-
-    # Ajust game lost / game tied counters and add results to game history
-
-
-
-if results == "won":
-    rounds_won += 1
-    feedback = "👍👍You won👍👍"
-else:
-    feedback = "😢😢You lose😢😢"
+print()
+if correct_answers >= game_goal:
+    make_statement("You made it to your goal", "👍")
+    print(f"you played {rounds_played} rounds")
