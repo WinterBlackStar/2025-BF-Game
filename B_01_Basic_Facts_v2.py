@@ -179,7 +179,7 @@ while user_score < game_goal:
                     print("Yay you got it right😁")
                     correct_answers += 1
                     current_answers = [str(num_one) + "+" + str(num_two), answers]
-                    history.append(current_answers)
+
 
                 else:
                     print("Aw naur, you got it wrong😭")
@@ -188,7 +188,7 @@ while user_score < game_goal:
 
 
 
-    # Outside rounds loop - Update score with round points, only add points to the score of the
+    # Outside rounds loop - Update game goal
         rounds_played += 1
 
 
