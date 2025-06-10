@@ -25,86 +25,109 @@ def string_checker(question, valid_ans=("yes", "no")):
         print(error)
         print()
 
+
+def mode_selection(question, valid_ans=("easy", "medium", "hard")):
+
+    error = f"please enter a valid option from the following list: {valid_ans}"
+
+    while True:
+
+        # get user response and make sure it's lowercase
+        user_response = input(question).lower()
+
+        for item in valid_ans:
+            # check if the user response is a word in the list
+            if item == user_response:
+                return item
+    
+            # check if the user response is the same as
+            # the first letter of an item in the list
+            elif user_response == item [0]:
+                return item
+
+        # print error if user does not enter something that is valid
+        print(error)
+        print()
+
+
+def int_checker():
+    """Check user enter an integer more than / equal to 13"""
+
+    error = "Please enter an integer more than / equal to 13."
+
+    while True:
+        try:
+            response = int(input("What's your Game Goal?"))
+
+            if response < 13:
+                print(error)
+            else:
+                return response
+
+        except ValueError:
+            print(error)
+
+def initial_points(which_player):
+    """Roll dice twice and return total / if double points apply"""
+
+    double = "no"
+
+    # Roll the dice for the user and note if they got a double
+    num_one = random.randint(1, 10)
+    num_two = random.randint(1, 10)
+
+    if num_one == num_two:
+        double = "yes"
+
+    total = num_one + num_two
+    print(f"{which_player} - first number: {num_one} \t| second number: {num_two} \t| Total: {total}")
+
+    return total, double
+
+
+def make_statement(statement, decoration):
+    """Adds emoji / additional characters to the start and end of heading"""
+
+    ends = decoration * 3
+    print(f"\n{ends} {statement} {ends}")
 # Display instructions
+
 def instructions():
         print("""
  
  *** Instructions ***
  
- To begin, choose the number of rounds (or press <enter> for infinite mode).
- 
- Then play against the computer. You need to choose R (rock), P (paper) or S (scissors).
- 
- Remember that:
-o Paper beats rock
-o Rock beats scissors
-o Scissors beats paper
-
-Press <xxx> to end the game anytime.
-
-Good Luck!
+To begin, choose the level of the questions easy (e),
+medium (m), hard (h), easy has plus and minus, 
+medium has times and hard has divition questions.
+              
+Then set game goal to the number of points you aim to reach (over 13).
+          
+Your goal is to try to reach or goal.
+          
+ Good luck!
 """)
 
 
-# checks for an integer more than 0 (allows <enter>)
-
-def int_check(question):
-    while True:
-        error = "Please enter an integer that is 1 or more"
-
-        to_check = input(question)
-
-        # check for infinite mode
-        if to_check == "":
-            return "infinite"
-
-        try:
-            response = int(to_check)
-    
-            # checks that the number is more than / equal to 13
-            if response < 1:
-                print(error)
-            else:
-                return response
-            
-        except ValueError:
-            print(error)
-
-# compares user / computer choice and returns
-# result (win / lose / tie)
-def rps_compare(user, comp):
-    
-    # If the user and the computer choice the same, it's a tie
-    if user == comp:
-        result = "tie"
-
-    # There are three ways to win
-    elif user == "paper" and comp == "rock":
-        result = "win"
-    elif user == "scissors" and comp == "paper":
-        result = "win"
-    elif user == "rock" and comp == "scissors":
-        result = "win"
-        
-    # if it's not a win / tie, then it's a loss
-    else:
-        result = "lose"
-
-    return result
-
 # Main Routine Starts here
-
 # Initialise game variables
-
-mode = "regular"
+# At the start of the game, user score are zero
+user_score = 0
 rounds_played = 0
+correct_answers = 0
+rounds_won = 0
+
+user_input = []
+history = []
 game_history = []
 
-rps_list = ["rock", "paper", "sciccors", "xxx"]
 
-
+# Main Routine
 print()
-print("✂️ 📄💎 Rock / Paper / Scissors Game💎📄✂️")
+print("➕➖✖️ ➗ Basic Facts➕➖✖️ ➗")
+print()
+
+print("😄😄😄Welcome y'all to the Basic Facts Quiz😄😄😄")
 
 # ask the user if they want to see instructions and display
 # them if requested
@@ -114,52 +137,79 @@ want_instructions = string_checker("Do you want to see the instructions?")
 if want_instructions == "yes":
     instructions()
 
-# Ask user for number of rounds / infinite mode
-num_rounds = int_check("How many rounds would you like? Push <enter> for inifinte mode: ")
+
+# Display Mode selection
+
+print("\nenter (e) for easy mode")
+mode_selection = input("\nwhat mode would you like?")
 
 
-if num_rounds == "infinite":
-    mode = "infinite"
-    num_rounds = 5
+    # if user chooses easy, display question
+
+if mode_selection =="e":
+        print("you selected e")
+
+
+game_goal = int(input("What's your Game Goal"))   
 
 # Game loop starts here
-while rounds_played < num_rounds:
+# Play multiple rounds until a winner has been found
+while user_score < game_goal:
 
-    # Round headings
-    if mode == "infinite":
-        rounds_heading = f"\n000 rounds {rounds_played + 1} (Infinite Mode) 000"
-    else:
-        rounds_heading = f"\n 💿💿💿 round {rounds_played + 1} of {num_rounds} 💿💿💿"
+    if game_goal == "game goal":
+        mode = "game goal"
+        game_goal = 5
 
-    print(rounds_heading)
-    print()
+    # Start of round loop
+ # Display questions for easy mode
+    
+    if mode_selection == "e":
 
-    # get user choice
-    user_choice = string_checker("Choose:", rps_list)
-    print("you chose", user_choice)
+        # generating questions
+        num_one = random.randint(0,9)
+        num_two = random.randint(0,9)
+        math_symbols = ["plus"]
 
-    # if user choice is the exit code, break the loop
-    if user_choice == "xxx":
+        if random.choice(math_symbols) == "plus":
+                answers = num_one + num_two
+                user_input = input(str(num_one) + "+" + str(num_two) + "=")
+                user_input = int(user_input)
+
+                if (user_input == answers):
+                    print("Yay you got it right😁")
+                    correct_answers += 1
+                    current_answers = [str(num_one) + "+" + str(num_two), answers]
+                    history.append(current_answers)
+
+                else:
+                    print("Aw naur, you got it wrong😭")
+                current_answers = [str(num_one) + "+" + str(num_two), answers]
+                history.append(current_answers)
+
+
+
+    # Outside rounds loop - Update score with round points, only add points to the score of the
+        rounds_played += 1
+
+
+        if correct_answers >= game_goal:
+            break
+        
+    if user_input == "xxx":
         break
 
-    # randomly choose from the rps list (excluding the exit code)
-    comp_choice = random.choice(rps_list[:-1])
 
-    results = rps_compare(user_choice, comp_choice)
-    feedback = f"{user_choice} vs {comp_choice}, {results}"
-    print(feedback)
-    game_history.append(feedback)
-
-    rounds_played += 1
-
-    # if users are in infinite mode, increase number of rounds!
-    if mode == "inifinte":
-        num_rounds += 1
-
+make_statement("Game Over", "🏁")
 
 # Game loop ends here
 
+print()
+if correct_answers >= game_goal:
+    make_statement("You made it to your goal", "👍")
+    print(f"you played {rounds_played} rounds")
+
 # Game History / Statistics area
+
 print("*** Game History ****")
 
 for item in game_history:
