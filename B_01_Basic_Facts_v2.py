@@ -26,7 +26,7 @@ def string_checker(question, valid_ans=("yes", "no")):
         print()
 
 
-def mode_selection(question, valid_ans=("easy", "medium", "hard")):
+def mode_selection(question, valid_ans=("easy")):
 
     error = f"please enter a valid option from the following list: {valid_ans}"
 
@@ -66,23 +66,6 @@ def int_checker():
 
         except ValueError:
             print(error)
-
-def initial_points(which_player):
-    """Roll dice twice and return total / if double points apply"""
-
-    double = "no"
-
-    # Roll the dice for the user and note if they got a double
-    num_one = random.randint(1, 10)
-    num_two = random.randint(1, 10)
-
-    if num_one == num_two:
-        double = "yes"
-
-    total = num_one + num_two
-    print(f"{which_player} - first number: {num_one} \t| second number: {num_two} \t| Total: {total}")
-
-    return total, double
 
 
 def make_statement(statement, decoration):
