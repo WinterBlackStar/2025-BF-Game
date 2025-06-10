@@ -117,9 +117,9 @@ rounds_played = 0
 correct_answers = 0
 rounds_won = 0
 
-user_input = []
+
 history = []
-game_history = []
+
 
 
 # Main Routine
@@ -202,15 +202,14 @@ while user_score < game_goal:
 make_statement("Game Over", "🏁")
 
 # Game loop ends here
-
 print()
 if correct_answers >= game_goal:
     make_statement("You made it to your goal", "👍")
     print(f"you played {rounds_played} rounds")
 
-# Game History / Statistics area
 
+# Game History / Statistics area
 print("*** Game History ****")
 
-for item in game_history:
+for item in history:
     print(item)
