@@ -51,15 +51,15 @@ def mode_selection(question, valid_ans=("easy")):
 
 
 def int_checker():
-    """Check user enter an integer more than / equal to 13"""
+    """Check user enter an integer more than / equal to 5"""
 
-    error = "Please enter an integer more than / equal to 13."
+    error = "Please enter an integer more than / equal to 5."
 
     while True:
         try:
             response = int(input("What's your Game Goal?"))
 
-            if response < 13:
+            if response < 5:
                 print(error)
             else:
                 return response
@@ -133,7 +133,8 @@ if mode_selection =="e":
         print("you selected e")
 
 
-game_goal = int(input("What's your Game Goal"))   
+print()
+game_goal = int_checker()
 
 # Game loop starts here
 # Play multiple rounds until a winner has been found
