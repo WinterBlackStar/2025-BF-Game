@@ -98,7 +98,6 @@ Your goal is to try to reach or goal.
 user_score = 0
 rounds_played = 0
 correct_answers = 0
-rounds_won = 0
 
 
 history = []
@@ -121,17 +120,6 @@ if want_instructions == "yes":
     instructions()
 
 
-# Display Mode selection
-
-print("\nenter (e) for easy mode")
-mode_selection = input("\nwhat mode would you like?")
-
-
-    # if user chooses easy, display question
-
-if mode_selection =="e":
-        print("you selected e")
-
 
 print()
 game_goal = int_checker()
@@ -144,48 +132,41 @@ while user_score < game_goal:
         mode = "game goal"
         game_goal = 5
 
-    # Start of round loop
- # Display questions for easy mode
-    
-    if mode_selection == "e":
-
+        # Start of round loop
         # generating questions
-        num_one = random.randint(0,9)
-        num_two = random.randint(0,9)
-        math_symbols = ["plus"]
-
-        if random.choice(math_symbols) == "plus":
-                answers = num_one + num_two
-                user_input = input(str(num_one) + "+" + str(num_two) + "=")
-                user_input = int(user_input)
-
-                if (user_input == answers):
-                    print("Yay you got it right😁")
-                    correct_answers += 1
-                    current_answers = [str(num_one) + "+" + str(num_two), answers]
+    num_one = random.randint(0,9)
+    num_two = random.randint(0,9)
+    math_symbols = ["plus"]
 
 
-                else:
-                    print("Aw naur, you got it wrong😭")
-                current_answers = [str(num_one) + "+" + str(num_two), answers]
-                history.append(current_answers)
+    answers = num_one + num_two
+    user_input = input(str(num_one) + "+" + str(num_two) + "=")
+    user_input = int(user_input)
+
+    if (user_input == answers):
+        print("Yay, you got it right😁")
+        correct_answers += 1
+        current_answers = [str(num_one) + "+" + str(num_two), answers]
+        history.append(current_answers)
+
+    else:
+        print("Aw naur, you got it wrong😭")
+        current_answers = [str(num_one) + "+" + str(num_two), answers]
+        history.append(current_answers)
 
 
+    # Rounds increase until reached game goal if not
+    # reached game goal then continue increasing rounds
+    rounds_played += 1
 
-    # Outside rounds loop - Update game goal
-        rounds_played += 1
 
-
-        if correct_answers >= game_goal:
-            break
-        
-    if user_input == "xxx":
+    if correct_answers >= game_goal:
         break
-
-
-make_statement("Game Over", "🏁")
+        
 
 # Game loop ends here
+make_statement("Game Over", "🏁")
+
 print()
 if correct_answers >= game_goal:
     make_statement("You made it to your goal", "👍")
