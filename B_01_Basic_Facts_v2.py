@@ -80,15 +80,18 @@ def instructions():
  
  *** Instructions ***
  
-To begin, choose the level of the questions easy (e),
-medium (m), hard (h), easy has plus and minus, 
-medium has times and hard has divition questions.
+To start the game, set your goal to the number of points you aim to reach. 
+Over or equal to 5, because less than 5 will be way too easy. Then answer 
+the questions, if you get it right you get one step closer to reaching your 
+goal, but if you get it wrong you will have to play more rounds to reach it. 
               
-Then set game goal to the number of points you aim to reach (over 13).
+At the end it'll show you how many rounds you've played, including the 
+correct answers if you got any wrong, make sure to get them right though...😗
+              
           
-Your goal is to try to reach or goal.
+Your aim is to try to reach your goal with no wrong answer.
           
- Good luck!
+ Good luck!😉
 """)
 
 
